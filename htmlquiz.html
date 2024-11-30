@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Programming Quests and Challenges</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="app">
+        <h1>Programming Quests and Challenges</h1>
+        <div id="question-container">
+            <h2 id="question"></h2>
+            <div id="options"></div>
+        </div>
+        <div id="score-container">
+            <p id="score">Score: 0</p>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
+<style>
+    body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    margin: 0;
+    padding: 20px;
+}
+#app {
+    max-width: 600px;
+    margin: 0 auto;
+    background-color: white;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+h1 {
+    text-align: center;
+}
+#question-container {
+    margin-top: 20px;
+}
+.option {
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin: 5px 0;
+    cursor: pointer;
+}
+.option:hover {
+    background-color: #f1f1f1;
+}
+#score-container {
+    margin-top: 20px;
+    text-align: center;
+}
+.correct {
+    background-color: rgb(2, 153, 2);
+}
+.wrong {
+    background-color: rgb(255, 0, 0);
+}
+.highlight-answer {
+    background-color: lightgreen;
+}
+.final-review {
+    margin-top: 20px;
+    padding: 10px;
+    border-top: 2px solid #ddd;
+}
+.final-review h2 {
+    text-align: center;
+}
+.review-question {
+    margin-top: 20px;
+}
+.review-question h3 {
+    margin: 0;
+}
+.review-option {
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin: 5px 0;
+    background-color: lightgray;
+}
+.review-option.correct {
+    background-color: lightgreen;
+}
+.review-option.wrong {
+    background-color: lightcoral;
+}
+
+</style>
+<script>
+   const questions = [
+    [
+       
+        { question: "What does HTML stand for?", options: ["Hyper Text Markup Language", "High Text Markup Language", "Hyper Tabular Markup Language", "None of these"], answer: 0 },
+        { question: "Which HTML element is used to define important text?", options: ["<strong>", "<important>", "<bold>", "<em>"], answer: 0 },
+        { question: "How do you create a hyperlink in HTML?", options: ["<a href='url'>", "<link href='url'>", "<url='url'>", "<hyperlink='url'>"], answer: 0 },
+        { question: "Which element is used to define a list item in HTML?", options: ["<list>", "<item>", "<li>", "<ul>"], answer: 2 },
+        { question: "How can you add a comment in HTML?", options: ["<!-- This is a comment -->", "// This is a comment", "/* This is a comment */", "# This is a comment"], answer: 0 }
+    ],
+    [
+    
+    
+       
+        { question: "Which HTML element is used to specify the title of a document?", options: ["<head>", "<title>", "<meta>", "<header>"], answer: 1 },
+        { question: "What attribute is used to specify the URL of an image in HTML?", options: ["src", "href", "alt", "link"], answer: 0 },
+        { question: "Which HTML tag is used to define an unordered list?", options: ["<list>", "<ul>", "<ol>", "<dl>"], answer: 1 },
+        { question: "What is the purpose of the `<meta>` tag in HTML?", options: ["To define metadata about the document", "To create hyperlinks", "To define the structure of a document", "To include external scripts"], answer: 0 },
+        { question: "Which HTML tag is used to create a table?", options: ["<table>", "<tab>", "<tr>", "<td>"], answer: 0 }
+    
+    ],
+    [
+       { question: "How do you define a table row in HTML?", options: ["<tr>", "<row>", "<td>", "<table>"], answer: 0 },
+        { question: "Which HTML element is used to define a form control?", options: ["<form>", "<input>", "<submit>", "<button>"], answer: 1 },
+       
+        { question: "What is the purpose of the `<div>` tag in HTML?", options: ["To create a block-level container", "To define inline text", "To include an image", "To create a hyperlink"], answer: 0 },
+        { question: "Which HTML tag is used to define the largest heading?", options: ["<h1>", "<heading>", "<title>", "<header>"], answer: 0 }
+    ]
+];
+
+let currentLevel = 0;
+let currentQuestionIndex = 0;
+let score = 0;
+
+const questionElement = document.getElementById('question');
+const optionsElement = document.getElementById('options');
+const scoreElement = document.getElementById('score');
+
+function loadQuestion() {
+    if (currentQuestionIndex >= questions[currentLevel].length) {
+        currentLevel++;
+        currentQuestionIndex = 0;
+    }
+    
+    if (currentLevel >= questions.length) {
+        showFinalScore();
+        return;
+    }
+
+    const currentQuestion = questions[currentLevel][currentQuestionIndex];
+    questionElement.textContent = currentQuestion.question;
+    optionsElement.innerHTML = '';
+    currentQuestion.options.forEach((option, index) => {
+        const optionElement = document.createElement('div');
+        optionElement.className = 'option';
+        optionElement.textContent = option;
+        optionElement.addEventListener('click', () => selectOption(index));
+        optionsElement.appendChild(optionElement);
+    });
+}
+
+function selectOption(index) {
+    const currentQuestion = questions[currentLevel][currentQuestionIndex];
+    const optionElements = optionsElement.children;
+    const correctIndex = currentQuestion.answer;
+
+    // Remove previous styling
+    Array.from(optionElements).forEach(element => {
+        element.classList.remove('correct', 'wrong', 'highlight-answer');
+    });
+
+    if (index === correctIndex) {
+        score++;
+        optionElements[index].classList.add('correct');
+    } else {
+        optionElements[index].classList.add('wrong');
+        optionElements[correctIndex].classList.add('highlight-answer');
+    }
+
+    scoreElement.textContent = `Score: ${score}`;
+
+    // Wait for 2 seconds, then move to the next question
+    setTimeout(() => {
+        if (currentLevel < questions.length) {
+            currentQuestionIndex++;
+            loadQuestion();
+        }
+    }, 2000);
+}
+
+function showFinalScore() {
+    questionElement.textContent = '';
+    optionsElement.innerHTML = '';
+    scoreElement.textContent = `Your final score is ${score}.`;
+
+    // Create final review section
+    const finalReview = document.createElement('div');
+    finalReview.className = 'final-review';
+    finalReview.innerHTML = '<h2>Review All Questions</h2>';
+
+    questions.forEach(levelQuestions => {
+        levelQuestions.forEach((q, qIndex) => {
+            const reviewQuestion = document.createElement('div');
+            reviewQuestion.className = 'review-question';
+            reviewQuestion.innerHTML = `<h3>${q.question}</h3>`;
+            
+            q.options.forEach((option, oIndex) => {
+                const optionElement = document.createElement('div');
+                optionElement.className = 'review-option';
+                optionElement.textContent = option;
+                if (oIndex === q.answer) {
+                    optionElement.classList.add('correct');
+                }
+                if (oIndex !== q.answer) {
+                    optionElement.classList.add('wrong');
+                }
+                reviewQuestion.appendChild(optionElement);
+            });
+
+            finalReview.appendChild(reviewQuestion);
+        });
+    });
+
+    document.getElementById('app').appendChild(finalReview);
+}
+
+loadQuestion();
+
+</script>

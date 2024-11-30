@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="contact-container">
+        <h1>Contact Us</h1>
+        <div class="contact-info">
+            <a href="https://www.instagram.com/innocent_boy_r34j/?next=%2F#" target="_blank" class="contact-link">
+                <i class="fab fa-instagram"></i> your_insta_id
+            </a>
+            <a href="mailto:your_email@gmail.com" class="contact-link">
+                <i class="fas fa-envelope"></i> your_email@gmail.com
+            </a>
+            <a href="https://www.facebook.com/your_fb_id" target="_blank" class="contact-link">
+                <i class="fab fa-facebook"></i> your_fb_id
+            </a>
+        </div>
+    </div>
+
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
+<style>
+    body {
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(rgb(167, 12, 228),rgb(4, 214, 22));
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.contact-container {
+    text-align: center;
+    background: linear-gradient(rgb(152, 177, 11),rgb(15, 146, 197));
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    animation: fadeIn 2s ease-in-out;
+}
+
+.contact-info {
+    margin-top: 20px;
+}
+
+.contact-link {
+    display: block;
+    margin: 10px 0;
+    font-size: 18px;
+    text-decoration: none;
+    color: #333;
+    transition: transform 0.3s ease-in-out;
+}
+
+.contact-link i {
+    margin-right: 8px;
+}
+
+.contact-link:hover {
+    transform: scale(1.1);
+    color: #007bff;
+}
+
+/* Keyframe for fade-in animation */
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+</style>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+    console.log('Contact page is loaded and ready!');
+});
+
+</script>

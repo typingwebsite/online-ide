@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Microblogging App</h1>
+    <input type="text" placeholder="what s on your mind" id="input"><br>
+    <button  onclick="add()">post</button>
+  <div id="comment">
+
+  </div>
+</body>
+</html>
+
+
+
+</style>
+
+<script>
+    
+function add(){
+let userinput=document.getElementById("input").value;   
+let usercomment=document.getElementById("comment")
+usercomment.innerHTML=userinput
+}
+
+   
+
+
+</script>
